@@ -1,5 +1,7 @@
 This is a billplz-dashboard created for pre-interview test for Frontend Developer Position by 'Arif Akmal Bin Kamarudin [cyphr.my](https://cyphr.my)
 
+ENV for the project can be found in .env.example. Yes it's not a good security practice but it's required to make sure that the mock data for this project works hehe.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
