@@ -58,7 +58,7 @@ const navMain = [
   },
   {
     name: "Payment Form",
-    url: "/app/payment-forms",
+    url: "/app/payment-form",
     icon: Map,
     external: false,
   },

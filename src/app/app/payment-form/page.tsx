@@ -1,3 +1,5 @@
+import BPHeader from "@/components/BPHeader";
+
 export default function PaymentPage() {
-  return <h1>Hello, Payment Form!</h1>;
+  return <BPHeader title="Payment Form" />;
 }
