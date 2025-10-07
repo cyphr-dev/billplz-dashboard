@@ -11,7 +11,7 @@ export default function BPCard({
 }: BPCardProps) {
   return (
     <div
-      className={`border rounded-lg shadow-sm bg-background ${className} ${
+      className={`border rounded-[8px] shadow-sm bg-background ${className} ${
         noPadding ? "p-0" : "p-4"
       }`}
     >

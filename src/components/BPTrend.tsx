@@ -13,7 +13,7 @@ export default function BPTrend({ value }: BPTrendProps) {
         <ArrowUp color="var(--color-positive)" />
       )}
       <p
-        className={`text-2xl font-semibold ${
+        className={`text-xl font-normal ${
           value.startsWith("-") ? "text-negative" : "text-positive"
         }`}
       >

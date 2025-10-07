@@ -3,39 +3,39 @@ import BPButton from "@/components/BPButton";
 import BPTrend from "@/components/BPTrend";
 import { BPLineChart } from "@/components/charts/BPLineChart";
 import { useQuery } from "@tanstack/react-query";
-import { PayoutData, TotalPayoutsStats } from "@/types/transactions";
+import { CollectionData, TotalCollectionsStats } from "@/types/transactions";
 import { fetchApi } from "@/lib/api";
 import { format } from "date-fns";
 
-// Fetch payouts from our API route
-const fetchTotalPayouts = async (): Promise<TotalPayoutsStats> => {
-  const data = await fetchApi<PayoutData[]>("/api/total-payouts");
+// Fetch collections from our API route
+const fetchTotalCollections = async (): Promise<TotalCollectionsStats> => {
+  const data = await fetchApi<CollectionData[]>("/api/total-collections");
 
   // Calculate total amount
   const totalAmount = data.reduce(
-    (sum, payout) => sum + parseFloat(payout.value),
+    (sum, collection) => sum + parseFloat(collection.value),
     0
   );
 
-  // Calculate chart data based on actual dates from API
+  // Calculate monthly chart data based on actual dates from API
   const monthsData: Array<{ month: string; value: number; label: string }> = [];
 
-  // Group payouts by month and create chart data points
+  // Group collections by month and create chart data points
   const monthlyGroups = new Map<string, { date: Date; value: number }>();
 
-  data.forEach((payout) => {
-    const payoutDate = new Date(payout.date);
-    const monthKey = format(payoutDate, "yyyy-MM");
+  data.forEach((collection) => {
+    const collectionDate = new Date(collection.date);
+    const monthKey = format(collectionDate, "yyyy-MM");
 
     if (!monthlyGroups.has(monthKey)) {
       monthlyGroups.set(monthKey, {
-        date: payoutDate, // Use actual date instead of startOfMonth
+        date: collectionDate, // Use actual date instead of startOfMonth
         value: 0,
       });
     }
 
     const group = monthlyGroups.get(monthKey)!;
-    group.value += parseFloat(payout.value);
+    group.value += parseFloat(collection.value);
   });
 
   // Sort by date in reverse order (most recent first)
@@ -53,7 +53,7 @@ const fetchTotalPayouts = async (): Promise<TotalPayoutsStats> => {
   });
 
   // Generate a fake trend (since we can't calculate it properly)
-  const fakeTrends = ["+3.4", "+6.2", "-2.1", "+4.8", "+2.9", "-1.7", "+5.3"];
+  const fakeTrends = ["+2.1", "+4.7", "-1.3", "+3.2", "+5.8", "-2.4", "+1.9"];
   const randomTrend = fakeTrends[Math.floor(Math.random() * fakeTrends.length)];
 
   return {
@@ -63,10 +63,10 @@ const fetchTotalPayouts = async (): Promise<TotalPayoutsStats> => {
   };
 };
 
-export default function TotalPayouts({ className }: { className?: string }) {
+export default function TotalPaidChart({ className }: { className?: string }) {
   const { data, isLoading, error } = useQuery({
-    queryKey: ["totalPayouts"],
-    queryFn: fetchTotalPayouts,
+    queryKey: ["totalCollections"],
+    queryFn: fetchTotalCollections,
     retry: 3,
     retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
     staleTime: 5 * 60 * 1000, // 5 minutes
@@ -74,12 +74,12 @@ export default function TotalPayouts({ className }: { className?: string }) {
   });
 
   const errorMessage =
-    error instanceof Error ? error.message : "Failed to load payouts data";
+    error instanceof Error ? error.message : "Failed to load collections data";
 
   return (
     <BPBentoCard
       className={className}
-      title="Total Payouts"
+      title="Total Paid"
       actionButton={
         <BPButton variant="link" size="link" className="text-[12px]">
           View all
@@ -87,7 +87,7 @@ export default function TotalPayouts({ className }: { className?: string }) {
       }
       isLoading={isLoading}
       isError={!!error}
-      errorTitle="Unable to load payouts"
+      errorTitle="Unable to load collections"
       errorDescription={errorMessage}
     >
       {data && (
@@ -105,7 +105,7 @@ export default function TotalPayouts({ className }: { className?: string }) {
             data={data.chartData}
             config={{
               value: {
-                label: "Payouts",
+                label: "Collections",
                 color: "var(--chart-1)",
               },
             }}

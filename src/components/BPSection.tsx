@@ -11,7 +11,7 @@ export default function BPSection({
 }: BPSectionProps) {
   return (
     <div className={`flex flex-col gap-4 ${className}`}>
-      {title && <p className="font-semibold">{title}</p>}
+      {title && <h4 className="font-semibold">{title}</h4>}
       {children}
     </div>
   );

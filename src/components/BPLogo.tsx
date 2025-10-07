@@ -7,7 +7,7 @@ export default function BPLogo() {
       width={155}
       height={24}
       alt="billplz logo"
-      className="h-16 py-2 x-2"
+      className="h-16 "
     />
   );
 }

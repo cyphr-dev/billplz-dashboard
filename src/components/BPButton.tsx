@@ -9,7 +9,7 @@ interface BPButtonProps {
     | "secondary"
     | "ghost"
     | "link";
-  size?: "default" | "sm" | "lg" | "icon";
+  size?: "default" | "sm" | "lg" | "icon" | "link";
   disabled?: boolean;
   className?: string;
   onClick?: () => void;

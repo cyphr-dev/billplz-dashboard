@@ -1,6 +1,7 @@
 import BPCard from "./BPCard";
 import BPEmptyErrorState from "./BPEmptyErrorState";
-import { AlertCircle, Loader2 } from "lucide-react";
+import { AlertCircle, CircleQuestionMark, Loader2 } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 
 interface BPBentoCardProps {
   children: React.ReactNode;
@@ -11,6 +12,7 @@ interface BPBentoCardProps {
   isError?: boolean;
   errorTitle?: string;
   errorDescription?: string;
+  explanationTooltip?: string;
 }
 
 export default function BPBentoCard({
@@ -22,6 +24,7 @@ export default function BPBentoCard({
   isError = false,
   errorTitle = "Something went wrong",
   errorDescription = "Unable to load data. Please try again.",
+  explanationTooltip,
 }: BPBentoCardProps) {
   const renderContent = () => {
     if (isLoading) {
@@ -48,8 +51,22 @@ export default function BPBentoCard({
   return (
     <BPCard className={`${className}`}>
       <div className="flex flex-row items-center justify-between mb-2">
-        <p className="font-semibold">{title}</p>
-        <div>{actionButton}</div>
+        <div className="flex items-center gap-2">
+          <p className="font-semibold text-[14px]">{title}</p>
+          {explanationTooltip && (
+            <Tooltip>
+              <TooltipTrigger>
+                <CircleQuestionMark
+                  width={14}
+                  height={14}
+                  className="text-primary"
+                />
+              </TooltipTrigger>
+              <TooltipContent>{explanationTooltip}</TooltipContent>
+            </Tooltip>
+          )}
+        </div>
+        {actionButton}
       </div>
       {renderContent()}
     </BPCard>

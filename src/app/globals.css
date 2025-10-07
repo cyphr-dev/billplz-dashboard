@@ -63,16 +63,16 @@
   --muted-foreground: oklch(0.554 0.046 257.417);
   --accent: oklch(0.968 0.007 247.896);
   --accent-foreground: oklch(0.208 0.042 265.755);
-  --positive: oklch(0.578 0.162 143.56);
+  --positive: oklch(0.6606 0.1686 147.64);
   --positive-foreground: oklch(0.984 0.003 247.858);
-  --negative: oklch(0.577 0.245 27.325);
+  --negative: oklch(0.5833 0.1988 25.91);
   --negative-foreground: oklch(0.984 0.003 247.858);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.929 0.013 255.508);
   --input: oklch(0.929 0.013 255.508);
   --ring: oklch(0.704 0.04 256.788);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-1: oklch(0.5959 0.192001 254.3634);
+  --chart-2: oklch(74.196% 0.10706 245.978);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
@@ -80,7 +80,7 @@
   --sidebar-foreground: oklch(0.129 0.042 264.695);
   --sidebar-primary: oklch(0.208 0.042 265.755);
   --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
+  --sidebar-accent: oklch(0.9151 0.0399 248.26);
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
@@ -131,8 +131,69 @@
   body {
     @apply bg-background text-foreground;
   }
+  .body1 {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: #5b5b5b;
+  }
+  .body1-bold {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 16px;
+    color: #bdbdbd;
+  }
+
+  .body2 {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #5b5b5b;
+  }
+
+  .body2-bold {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+    color: #202d41;
+  }
+
+  .body3-bold {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .body12-regular {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: "-2%";
+  }
+
+  .body14-regular {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .custom-dashed-border {
+    border-style: dashed; /* Fallback for older browsers */
+    border-width: 1px; /* Adjust as needed */
+    --dash-gap: 10px; /* Adjust as needed */
+  }
 
   h3 {
-    @apply scroll-m-20 text-2xl font-semibold tracking-tight;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 34px;
+    letter-spacing: 0%;
+    color: #202d41;
+  }
+  h4 {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: 0%;
+    color: #242424;
   }
 }

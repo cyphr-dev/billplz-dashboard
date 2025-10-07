@@ -1,91 +1,49 @@
-import BPCard from "@/components/BPBentoCard";
-import BPHeader from "@/components/BPHeader";
-import BPTrend from "@/components/BPTrend";
+"use client";
 
-const cardContents = [
-  {
-    title: "Total Paid",
-    actionButton: <button>View all</button>,
-    content: (
-      <>
-        <div className="flex flex-row">
-          <p className="text-2xl font-semibold">RM1,200.00</p>
-          <BPTrend value="2.6" />
-        </div>
-        <div>Insert chart here</div>
-      </>
-    ),
-  },
-  {
-    title: "Top 5 Performing Collections",
-    content: <>Insert Bar Chart Here</>,
-  },
-  {
-    title: "Total Transactions",
-    actionButton: <button>View all</button>,
-    content: (
-      <>
-        <div className="flex flex-row">
-          <p className="text-2xl font-semibold">39</p>
-          <BPTrend value="-3.2" />
-        </div>
-        <div>Insert chart here</div>
-      </>
-    ),
-  },
-  {
-    title: "Upcoming FPX Payout",
-    actionButton: <button>See details</button>,
-    content: (
-      <>
-        <div className="flex flex-col">
-          <p className="text-2xl font-semibold">RM1,200.00</p>
-          <p className="body">
-            Expected to reach your bank account on 12 Sept 2021
-          </p>
-        </div>
-      </>
-    ),
-  },
-  {
-    title: "Total Payouts",
-    actionButton: <button>View all</button>,
-    content: (
-      <>
-        <div className="flex flex-row">
-          <p className="text-2xl font-semibold">RM25,000.00</p>
-          <BPTrend value="5.6" />
-        </div>
-        <div>Insert line graph here</div>
-      </>
-    ),
-  },
-  {
-    title: "Active vs. Inactive Collections",
-    content: <>Insert Pie Chart Here</>,
-  },
-  {
-    title: "Collections by Payment Methods",
-    content: <>Insert Pie Chart Here</>,
-  },
-];
+import BPHeader from "@/components/BPHeader";
+import BPSection from "@/components/BPSection";
+import BPTimeRangeFilter, { FilterValue } from "@/components/BPTimeRangeFilter";
+
+import { CollectionsTable } from "@/components/pages/billing/CollectionsTable";
+import TotalCollection from "@/components/pages/billing/TotalCollection";
+import TotalPaid from "@/components/pages/billing/TotalPaid";
+import TotalPaidChart from "@/components/pages/billing/TotalPaidChart";
+import TopPerformingCollections from "@/components/pages/dashboard/TopPerformingCollections";
+import { useState } from "react";
 
 export default function BillingPage() {
+  const [selectedFilter, setSelectedFilter] = useState<FilterValue>({
+    name: "month",
+    value: "month",
+  });
+
+  const handleFilterChange = (filter: FilterValue) => {
+    setSelectedFilter(filter);
+    // You can add additional logic here to filter billing data
+    console.log("Billing filter changed to:", filter);
+  };
+
   return (
     <>
-      <BPHeader title="Billing" />
-      <div className="grid grid-cols-3 gap-4">
-        {cardContents.map((card, index) => (
-          <BPCard
-            key={index}
-            className="col-span-3 md:col-span-1"
-            title={card.title}
-            actionButton={card.actionButton}
-          >
-            {card.content}
-          </BPCard>
-        ))}
-      </div>
+      <BPHeader
+        title="Billing"
+        rightChildren={
+          <BPTimeRangeFilter
+            defaultValue="month"
+            onFilterChange={handleFilterChange}
+            showComparison={true}
+          />
+        }
+      />
+      <BPSection className="grid grid-rows-3 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <TotalPaidChart className="col-span-3 row-span-3 md:col-span-1" />
+        <TopPerformingCollections className="col-span-3 row-span-3 md:col-span-1" />
+        <TotalPaid className="col-span-3 row-span-1 md:col-span-1" />
+        <TotalCollection className="col-span-3 row-span-1 md:col-span-1" />
+      </BPSection>
+      <BPSection title="Collections" className="mt-4">
+        <CollectionsTable />
+      </BPSection>
     </>
   );
 }

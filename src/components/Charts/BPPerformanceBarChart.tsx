@@ -9,27 +9,42 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-export const description = "A bar chart with a custom label";
-
-const chartData = [{ month: "January", desktop: 186, mobile: 80 }];
+interface BPPerformanceBarChartProps {
+  data: {
+    name: string;
+    value: number;
+    percentage: number;
+    displayValue: string;
+  };
+  maxValue: number;
+}
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
+  value: {
+    label: "Collection Total",
     color: "var(--chart-1)",
-  },
-  mobile: {
-    label: "Mobile",
-    color: "var(--chart-2)",
   },
   label: {
     color: "var(--background)",
   },
 } satisfies ChartConfig;
 
-export function BPBarChart() {
+export function BPPerformanceBarChart({
+  data,
+  maxValue,
+}: BPPerformanceBarChartProps) {
+  const chartData = [
+    {
+      name: data.name,
+      value: data.value,
+      percentage: data.percentage,
+      displayValue: data.displayValue,
+      maxValue,
+    },
+  ];
+
   return (
-    <ChartContainer config={chartConfig} className="w-full h-10">
+    <ChartContainer config={chartConfig} className="w-full h-7">
       <BarChart
         accessibilityLayer
         data={chartData}
@@ -39,38 +54,30 @@ export function BPBarChart() {
         }}
       >
         <YAxis
-          dataKey="month"
+          dataKey="name"
           type="category"
           tickLine={false}
           tickMargin={10}
           axisLine={false}
           hide
         />
-        <XAxis dataKey="desktop" type="number" hide />
+        <XAxis dataKey="value" type="number" hide domain={[0, maxValue]} />
         <ChartTooltip
           cursor={false}
           content={<ChartTooltipContent indicator="line" />}
         />
         <Bar
-          dataKey="desktop"
+          dataKey="value"
           layout="vertical"
-          fill="var(--color-desktop)"
-          radius={4}
+          fill="var(--color-value)"
           barSize={25}
         >
           <LabelList
-            dataKey="month"
+            dataKey="displayValue"
             position="insideLeft"
             offset={8}
-            className="fill-(--color-label)"
-            fontSize={12}
-          />
-          <LabelList
-            dataKey="desktop"
-            position="right"
-            offset={8}
-            className="fill-foreground"
-            fontSize={12}
+            className="font-medium fill-white"
+            fontSize={11}
           />
         </Bar>
       </BarChart>

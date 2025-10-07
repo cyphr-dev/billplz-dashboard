@@ -52,17 +52,12 @@ export function BPLineChart({
   className,
 }: BPLineChartProps) {
   return (
-    <div className={className}>
+    <div className={`w-full ${className}`}>
       <ChartContainer config={config}>
-        <LineChart accessibilityLayer data={data} margin={{}}>
+        <LineChart accessibilityLayer data={data}>
           <CartesianGrid vertical={false} />
-          <XAxis
-            dataKey={xAxisKey}
-            tickLine={false}
-            axisLine={false}
-            tickFormatter={(value) => value.slice(0, 3)}
-          />
-          <YAxis tickLine={false} axisLine={false} />
+          <XAxis dataKey={xAxisKey} tickLine={false} axisLine={false} />
+          <YAxis tickLine={false} axisLine={false} width={35} />
           <ChartTooltip
             cursor={false}
             content={<ChartTooltipContent hideLabel />}
